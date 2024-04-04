@@ -66,6 +66,10 @@ fun LocationDisplay(
 ) {
     val location = viewModel.location.value
 
+    val address = location?.let {
+        locationUtils.reverseGeoLocation(location)
+    }
+
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions() ,
         onResult = {permissions ->
@@ -108,7 +112,7 @@ fun LocationDisplay(
     ) {
 
         if (location != null) {
-            Text(text = "Address ${location.latitute} ${location.longitude}")
+            Text(text = "Address ${location.latitute} ${location.longitude} \n $address")
         } else {
         Text(text = "Location not available")
         }
